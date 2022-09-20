@@ -1,0 +1,32 @@
+{
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false
+    },
+    "[ejs]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false
+    },
+}
