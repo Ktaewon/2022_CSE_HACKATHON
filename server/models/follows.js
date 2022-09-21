@@ -1,0 +1,23 @@
+'use strict';
+const { Follow, fn } = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Follow extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+  }
+  Follow.init({
+    follower: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+
+    followee: {
+      allowNull: false,
+      type: DataTypes.StRING,
+    },
+  });
+  return Follow;
+};
