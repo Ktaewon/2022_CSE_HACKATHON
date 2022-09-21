@@ -1,7 +1,7 @@
 'use strict';
 const { Model, fn } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Melody extends Model {
+  class Submelody extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,15 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Melody.belongsTo(models.User, {
+      models.Submelody.belongsTo(models.User, {
         foreignKey: 'email',
       });
-      models.Melody.hasMany(models.Submelody, {
+      models.Submelody.belongsTo(models.Melody, {
         foreignKey: 'melody_id',
       });
+      // models.User.hasMany(models.Item, {
+      //   foreignKey: 'user_email',
+      // });
     }
   }
-  Melody.init(
+  Submelody.init(
     {
       id: {
         allowNull: false,
@@ -25,7 +28,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
+      melody_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
       user_email: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      instrument: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -37,31 +48,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT('long'),
       },
-      image: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      deadline: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      hashtags: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      my_instrument: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      need_instrument: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
       audio: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      genre: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -83,8 +70,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Melody',
+      modelName: 'Submelody',
     }
   );
-  return Melody;
+  return Submelody;
 };
