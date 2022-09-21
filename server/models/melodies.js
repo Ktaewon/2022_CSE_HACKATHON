@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       models.Melody.hasMany(models.Submelody, {
         foreignKey: 'melody_id',
       });
+      models.Melody.hasMany(models.Comment, {
+        foreignKey: 'melody_id',
+      });
     }
   }
   Melody.init(
