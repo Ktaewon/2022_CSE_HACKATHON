@@ -1,1 +1,3 @@
 /server/node_modules
+/server/docker-compose.yml
+/server/dockerfile
