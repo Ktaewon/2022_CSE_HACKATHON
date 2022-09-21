@@ -8,16 +8,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
   }
-  Follow.init({
-    follower: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
+  Follow.init(
+    {
+      follower: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
 
-    followee: {
-      allowNull: false,
-      type: DataTypes.StRING,
+      followee: {
+        allowNull: false,
+        type: DataTypes.StRING,
+      },
     },
-  });
+    {
+      sequelize,
+      modelName: 'Follow',
+    }
+  );
   return Follow;
 };

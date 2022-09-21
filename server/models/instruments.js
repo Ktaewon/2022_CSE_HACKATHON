@@ -8,18 +8,24 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
   }
-  Instrument.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-    },
+  Instrument.init(
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
 
-    name: {
-      allowNull: false,
+      name: {
+        allowNull: false,
 
-      type: DataTypes.StRING,
+        type: DataTypes.StRING,
+      },
     },
-  });
+    {
+      sequelize,
+      modelName: 'Instrument',
+    }
+  );
   return Instrument;
 };

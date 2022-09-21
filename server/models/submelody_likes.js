@@ -8,17 +8,23 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
   }
-  SubMelody_like.init({
-    sub_melody_id: {
-      allowNull: false,
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-    },
+  SubMelody_like.init(
+    {
+      sub_melody_id: {
+        allowNull: false,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
 
-    user_email: {
-      allowNull: false,
-      type: DataTypes.StRING,
+      user_email: {
+        allowNull: false,
+        type: DataTypes.StRING,
+      },
     },
-  });
+    {
+      sequelize,
+      modelName: 'SubMelody_like',
+    }
+  );
   return SubMelody_like;
 };
