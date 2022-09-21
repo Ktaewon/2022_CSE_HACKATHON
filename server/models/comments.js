@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       models.Comment.belongsTo(models.User, {
         foreignKey: 'email',
       });
+      models.Comment.belongsTo(models.Melody, {
+        foreignKey: 'id',
+      });
       // models.Melody.hasMany(models.Submelody, {
       //   foreignKey: 'melody_id',
       // });
@@ -24,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
+      },
+      melody_id: {
+        allowNull: false,
+        type: DataTypes.STRING,
       },
       user_email: {
         allowNull: false,

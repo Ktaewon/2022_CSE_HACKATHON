@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(models.Comment, {
         foreignKey: 'user_email',
       });
+      models.User.belongsToMany(models.Follow, {
+        foreignKey: 'followee',
+      });
+      models.User.belongsToMany(models.Follow, {
+        foreignKey: 'follower',
+      });
       // models.User.hasMany(models.LeaseContract, {
       //   foreignKey: 'user_email',
       // });

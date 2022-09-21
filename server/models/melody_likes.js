@@ -17,17 +17,23 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Melody_like.init({
-    melody_id: {
-      allowNull: false,
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-    },
+  Melody_like.init(
+    {
+      melody_id: {
+        allowNull: false,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
 
-    user_email: {
-      allowNull: false,
-      type: DataTypes.StRING,
+      user_email: {
+        allowNull: false,
+        type: DataTypes.StRING,
+      },
     },
-  });
+    {
+      sequelize,
+      modelName: 'Melody_like',
+    }
+  );
   return Melody_like;
 };
