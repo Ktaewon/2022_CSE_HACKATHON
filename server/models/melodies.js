@@ -7,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-    //   models.User.hasMany(models.Item, {
-    //     foreignKey: 'user_email',
-    //   });
-    //   models.User.hasMany(models.LeaseContract, {
-    //     foreignKey: 'user_email',
-    //   });
-    // }
+    static associate(models) {
+      // define association here
+      models.Item.belongsTo(models.User, {
+        foreignKey: 'email',
+      });
+      // models.User.hasMany(models.Item, {
+      //   foreignKey: 'user_email',
+      // });
+    }
   }
   Melody.init(
     {
