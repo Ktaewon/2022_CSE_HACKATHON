@@ -1,5 +1,5 @@
 'use strict';
-const { SubMelody_like, fn } = require('sequelize');
+const { Model, fn } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class SubMelody_like extends Model {
     /**

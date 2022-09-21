@@ -1,29 +1,24 @@
 'use strict';
 const { Model, fn } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Follow extends Model {
+  class Melody_like extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
   }
-  Follow.init(
-    {
-      follower: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-
-      followee: {
-        allowNull: false,
-        type: DataTypes.StRING,
-      },
+  Melody_like.init({
+    melody_id: {
+      allowNull: false,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
     },
-    {
-      sequelize,
-      modelName: 'Follow',
-    }
-  );
-  return Follow;
+
+    user_email: {
+      allowNull: false,
+      type: DataTypes.StRING,
+    },
+  });
+  return Melody_like;
 };
