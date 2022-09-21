@@ -1,7 +1,7 @@
 'use strict';
 const { Model, fn } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,46 +9,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.User.hasMany(models.Melody, {
-        foreignKey: 'user_email',
+      models.Melody.belongsTo(models.User, {
+        foreignKey: 'email',
       });
-      models.User.hasMany(models.Submelody, {
-        foreignKey: 'user_email',
-      });
-      models.User.hasMany(models.Comment, {
-        foreignKey: 'user_email',
-      });
-      // models.User.hasMany(models.LeaseContract, {
-      //   foreignKey: 'user_email',
+      // models.Melody.hasMany(models.Submelody, {
+      //   foreignKey: 'melody_id',
       // });
     }
   }
-  User.init(
+  Comment.init(
     {
-      email: {
+      id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
-      nickname: {
+      user_email: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      password: {
+      body: {
         allowNull: false,
-        type: DataTypes.STRING,
-      },
-      salt: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      phone: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      name: {
-        allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT('long'),
       },
       is_valid: {
         allowNull: false,
@@ -68,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: 'Comment',
     }
   );
-  return User;
+  return Comment;
 };
