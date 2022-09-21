@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       models.Melody.belongsTo(models.User, {
         foreignKey: 'email',
       });
+      models.Melody.belongsTo(models.Instrument, {
+        foreignKey: 'id',
+      });
+      models.Melody.belongsTo(models.Jenre, {
+        foreignKey: 'id',
+      });
       models.Melody.hasMany(models.Submelody, {
         foreignKey: 'melody_id',
       });

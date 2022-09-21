@@ -9,12 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // models.Melody.belongsTo(models.User, {
-      //   foreignKey: 'email',
-      // });
-      // models.Melody.hasMany(models.Submelody, {
-      //   foreignKey: 'melody_id',
-      // });
+      models.Jenre.hasMany(models.Melody, {
+        foreignKey: 'genre',
+      });
     }
   }
   Jenre.init(

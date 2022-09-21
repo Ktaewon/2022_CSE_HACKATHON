@@ -12,7 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(models.Melody, {
         foreignKey: 'user_email',
       });
+      models.User.hasMany(models.Melody_like, {
+        foreignKey: 'user_email',
+      });
       models.User.hasMany(models.Submelody, {
+        foreignKey: 'user_email',
+      });
+      models.User.hasMany(models.Submelody_like, {
         foreignKey: 'user_email',
       });
       models.User.hasMany(models.Comment, {

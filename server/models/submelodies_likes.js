@@ -1,7 +1,7 @@
 'use strict';
 const { Model, fn } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Melody_like extends Model {
+  class SubMelody_like extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,16 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Melody_like.belongsTo(models.Melody, {
+      models.SubMelody_like.belongsTo(models.Submelody, {
         foreignKey: 'id',
       });
-      models.Melody_like.belongsTo(models.User, {
+      models.SubMelody_like.belongsTo(models.User, {
         foreignKey: 'email',
       });
     }
   }
-  Melody_like.init({
-    melody_id: {
+
+  SubMelody_like.init({
+    sub_melody_id: {
       allowNull: false,
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -29,5 +30,5 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.StRING,
     },
   });
-  return Melody_like;
+  return SubMelody_like;
 };
