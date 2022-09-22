@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       models.Instrument.hasMany(models.Melody, {
         foreignKey: 'need_instrument',
       });
-      models.User.hasMany(models.Submelody, {
+      models.Instrument.hasMany(models.Submelody, {
         foreignKey: 'instrument',
       });
     }
