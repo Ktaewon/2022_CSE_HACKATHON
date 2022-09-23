@@ -2,7 +2,7 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
-  const { doAsync } = require('$base/utils/asyncWrapper');
+  const { doAsync } = require('$utils/asyncWrapper');
   //const checkClientType = require('$base/utils/checkClientType');
   //const signout = require('./function/signout');
   const { melody } = require('./melodyAPI');
@@ -13,29 +13,28 @@ module.exports = (db) => {
     '/',
     doAsync(async (req, res) => {
       const {
-        body: {
-          title,
-          instrument,
-          image,
-          deadline,
-          hashtag,
-          my_instrument,
-          need_instrument,
-          jenre,
-        },
-      } = req;
-      const user_email = req.session.email;
-      const result = await db.Melody.create(
         title,
-        instrument,
         image,
+        body,
         deadline,
-        hashtag,
+        hashtags,
         my_instrument,
         need_instrument,
-        jenre,
-        user_email
-      );
+        genre,
+      } = req.body;
+      console.log(title);
+      const user_email = req.session.email;
+      const result = await db.Melody.create({
+        title,
+        image,
+        body,
+        deadline,
+        hashtags,
+        my_instrument,
+        need_instrument,
+        genre,
+        user_email,
+      });
       if (!result) {
         res.status(500).send({ message: '에러남' });
       }
@@ -54,6 +53,9 @@ module.exports = (db) => {
       res.status(200).json(melody);
     })
   );
+
+  // TO-DO
+  // 메인멜로디 옵션 설정해서 조회
 
   return router;
 };

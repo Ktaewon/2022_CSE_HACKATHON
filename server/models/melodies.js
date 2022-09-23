@@ -15,8 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       models.Melody.belongsTo(models.Instrument, {
         foreignKey: 'my_instrument',
       });
-      models.Melody.belongsTo(models.Jenre, {
+      models.Melody.belongsTo(models.Instrument, {
         foreignKey: 'need_instrument',
+      });
+      models.Melody.belongsTo(models.Genre, {
+        foreignKey: 'genre',
       });
       models.Melody.hasMany(models.Submelody, {
         foreignKey: 'melody_id',
@@ -67,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       audio: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       genre: {

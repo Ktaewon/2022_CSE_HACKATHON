@@ -2,7 +2,7 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
-  const { doAsync } = require('$base/utils/asyncWrapper');
+  const { doAsync } = require('$utils/asyncWrapper');
   //const checkClientType = require('$base/utils/checkClientType');
   //const signout = require('./function/signout');
   const { submelody } = require('./submelodyAPI');
