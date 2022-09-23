@@ -12,11 +12,23 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const { melody_id, body } = req.body;
 
+      if (!melody_id) {
+        const error = new Error('Melody ID is not given.');
+        error.statusCode = 401;
+        throw error;
+      }
+
       const result = await db.Comment.create({
         melody_id,
         body,
         user_email: req.session.email,
       });
+
+      if (!result) {
+        const error = new Error('Comment Create Failed.');
+        error.statusCode = 500;
+        throw error;
+      }
 
       res.status(200).json(result);
     })
@@ -31,12 +43,22 @@ module.exports = (db) => {
     authenticate,
     doAsync(async (req, res) => {
       const { melody_id, body } = req.body;
+      if (!melody_id) {
+        const error = new Error('Melody ID is not given.');
+        error.statusCode = 401;
+        throw error;
+      }
 
       const results = await db.Comment.findAll({
         where: {
           melody_id,
         },
       });
+      if (!results) {
+        const error = new Error('Comment Retrieval Failed.');
+        error.statusCode = 500;
+        throw error;
+      }
 
       res.status(200).json(results);
     })
@@ -66,6 +88,11 @@ module.exports = (db) => {
     authenticate,
     doAsync(async (req, res) => {
       const { comment_id } = req.params;
+      if (!comment_id) {
+        const error = new Error('Comment ID is not given.');
+        error.statusCode = 401;
+        throw error;
+      }
 
       const result = await db.Comment.destroy({
         where: {
