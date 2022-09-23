@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT('long'),
       },
       audio: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       is_valid: {
