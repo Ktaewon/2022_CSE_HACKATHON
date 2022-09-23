@@ -18,17 +18,19 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(models.Submelody, {
         foreignKey: 'user_email',
       });
-      models.User.hasMany(models.Submelody_like, {
+      models.User.hasMany(models.SubMelody_like, {
         foreignKey: 'user_email',
       });
       models.User.hasMany(models.Comment, {
         foreignKey: 'user_email',
       });
-      models.User.belongsToMany(models.Follow, {
+      models.User.belongsToMany(models.User, {
         foreignKey: 'followee',
+        through: 'Follows',
       });
-      models.User.belongsToMany(models.Follow, {
+      models.User.belongsToMany(models.User, {
         foreignKey: 'follower',
+        through: 'Follows',
       });
       // models.User.hasMany(models.LeaseContract, {
       //   foreignKey: 'user_email',

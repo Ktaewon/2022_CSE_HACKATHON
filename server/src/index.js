@@ -1,5 +1,5 @@
 // 1) DB 모델들 가져오기
-//const db = require('../models');
+const db = require('../models');
 const express = require('express');
 const app = express();
 // 4) env파일 사용
@@ -11,9 +11,9 @@ const mysql2 = require('mysql2/promise');
 // 10) PORT
 const PORT = process.env.PORT || 5000;
 // 11) DB 테이블 생성(없으면 생성해줌)
-// db.sequelize.sync().then((response) => {
-//   console.log('DB sync is completed.');
-// });
+db.sequelize.sync().then((response) => {
+  console.log('DB sync is completed.');
+});
 
 // *) HTTP request log
 app.use(morgan('dev'));
@@ -39,6 +39,14 @@ app.get('/admin', (req, res) => {
 });
 // app.use('/api', require('./api')(db));
 
+// 없는페이지 에러메세지
+app.get('*', (req, res) => {
+  console.log(`${req.path}: not found`);
+  res.render('error/couldNotFind', { path: req.path });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}!`);
 });
+
+app.set('data', []);

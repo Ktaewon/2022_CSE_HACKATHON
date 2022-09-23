@@ -21,10 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       melody_id: {
         allowNull: false,
-        autoIncrement: true,
         type: DataTypes.INTEGER,
       },
-
       user_email: {
         allowNull: false,
         type: DataTypes.STRING,

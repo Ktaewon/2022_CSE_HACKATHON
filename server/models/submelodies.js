@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       models.Submelody.belongsTo(models.Melody, {
         foreignKey: 'melody_id',
       });
-      models.Submelody.hasMany(models.Submelody_like, {
+      models.Submelody.hasMany(models.SubMelody_like, {
         foreignKey: 'sub_melody_id',
       });
       // models.User.hasMany(models.Item, {
