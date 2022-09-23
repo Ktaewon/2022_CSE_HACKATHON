@@ -86,7 +86,8 @@ app.use((err, req, res, next) => {
 // 없는페이지 에러메세지
 app.get('*', (req, res) => {
   console.log(`${req.path}: not found`);
-  res.render('error/couldNotFind', { path: req.path });
+  res.send('<h1>No Page is Exists');
+  //res.render('error/couldNotFind', { path: req.path });
 });
 
 app.listen(PORT, () => {

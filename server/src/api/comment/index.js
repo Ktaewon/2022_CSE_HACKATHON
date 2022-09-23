@@ -2,64 +2,80 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
-  const { doAsync } = require('$base/utils/asyncWrapper');
-  //const checkClientType = require('$base/utils/checkClientType');
-  //const signout = require('./function/signout');
-  const { comment } = require('./commentAPI');
+  const { doAsync } = require('$utils/asyncWrapper.js');
+  const authenticate = require('$utils/authenticate');
 
-  //댓글 작성
+  // Create
   router.post(
-    '/comment/:melody_id',
+    '/',
+    authenticate,
     doAsync(async (req, res) => {
-      const { melody_id } = req.params;
-      const {
-        body: { body },
-      } = req;
-      const user_email = req.session.email;
+      const { melody_id, body } = req.body;
 
-      const result = await db.Submelody.create(melody_id, body, user_email);
+      const result = await db.Comment.create({
+        melody_id,
+        body,
+        user_email: req.session.email,
+      });
 
-      if (!result) {
-        res.status(500).send({ message: '에러남' });
-      }
       res.status(200).json(result);
     })
   );
 
-  router.get('/api/melody/:melody_id', async (req, res) => {
-    const { melody_id } = req.params;
-    const melody = await db.Melody.findOne({ where: { id: melody_id } });
-    if (!melody) {
-      res.status(500).send({ message: '에러남' });
-    }
-    res.status(200).json(melody);
-  });
+  /**
+   * 모든 Comment 조회
+   */
+  // Retreive
+  router.get(
+    '/',
+    authenticate,
+    doAsync(async (req, res) => {
+      const { melody_id, body } = req.body;
 
-  //서브멜로디 배열로 불러와서 찾아야 할 듯
-  router.get('/api/submelody/:submelody_id', async (req, res) => {
-    const { submelody_id } = req.params;
-    const submelody = await db.Submelody.findOne({
-      where: { id: submelody_id },
-    });
-    if (!submelody) {
-      res.status(500).send({ message: '에러남' });
-    }
-    res.status(200).json(submelody);
-  });
+      const results = await db.Comment.findAll({
+        where: {
+          melody_id,
+        },
+      });
 
-  //
-  // router.get(
-  // 	'/api/submelody/',
-  // 	async(req,res)=>{
-  // 	// var data=req.app.get('data');
-  // 	const array=JSON.parse(req.body.D);
-  // 	for(let i=0;i<array.length;i++){
-  // 			array.push(D.body[i]);
-  // 	}
-  // 	data.push(req.body);
+      res.status(200).json(results);
+    })
+  );
+  /**
+   * Comment 하나 조회
+   */
+  router.get(
+    '/:comment_id',
+    authenticate,
+    doAsync(async (req, res) => {
+      const { comment_id } = req.params;
 
-  // }
-  // )
+      const result = await db.Comment.findOne({
+        where: {
+          melody_id,
+        },
+      });
+
+      res.status(200).json(result);
+    })
+  );
+
+  // Delete
+  router.delete(
+    '/:comment_id',
+    authenticate,
+    doAsync(async (req, res) => {
+      const { comment_id } = req.params;
+
+      const result = await db.Comment.destroy({
+        where: {
+          id: comment_id,
+        },
+      });
+
+      res.status(200).json(result);
+    })
+  );
 
   return router;
 };
