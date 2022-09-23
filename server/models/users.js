@@ -25,12 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_email',
       });
       models.User.belongsToMany(models.User, {
-        foreignKey: 'followee',
-        through: 'Follows',
+        as: 'follower',
+        foreignKey: 'follower',
+        through: models.Follow,
       });
       models.User.belongsToMany(models.User, {
-        foreignKey: 'follower',
-        through: 'Follows',
+        as: 'followee',
+        foreignKey: 'followee',
+        through: models.Follow,
       });
       // models.User.hasMany(models.LeaseContract, {
       //   foreignKey: 'user_email',
@@ -53,14 +55,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       salt: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      phone: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      name: {
         allowNull: false,
         type: DataTypes.STRING,
       },

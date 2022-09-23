@@ -34,16 +34,35 @@ module.exports = (db) => {
   });
 
   //서브멜로디 배열로 불러와서 찾아야 할 듯
-  router.get('/api/submelody/:submelody_id', async (req, res) => {
-    const { submelody_id } = req.params;
-    const submelody = await db.Submelody.findOne({
-      where: { id: submelody_id },
+  // router.get('/api/submelody/', async (req, res) => {
+  //   // const { submelody_id } = db.Submelody.id;
+  // 	const sub_array=req.body;
+  // 		const submelody = await db.Submelody.findAll({
+  // 			where: { id:  },
+  // 		});
+  // 		sub_id_array.push(submelody);
+  // 	}
+  //   // const submelody = await db.Submelody.findOne({
+  //   //   where: { id: submelody_id },
+  //   // });
+  //   if (!sub_id_array) {
+  //     res.status(500).send({ message: '에러남' });
+  //   }
+
+  //배열을 json으로 받아서 그대로 where에 넣기만 하면됨
+  router.get('/api/submelody/', async (req, res) => {
+    //findall이 배열에 담아서 주는거
+    const submelody = await db.Submelody.findAll({
+      where: { id: req.body.id_list },
     });
     if (!submelody) {
       res.status(500).send({ message: '에러남' });
     }
     res.status(200).json(submelody);
   });
+
+  //   res.status(200).json(sub_id_array);
+  // });
 
   //
   // router.get(

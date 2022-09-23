@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Submelody.belongsTo(models.User, {
-        foreignKey: 'email',
+        foreignKey: 'user_email',
       });
       models.Submelody.belongsTo(models.Melody, {
         foreignKey: 'melody_id',

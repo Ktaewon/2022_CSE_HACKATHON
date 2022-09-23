@@ -22,16 +22,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Instrument.init(
     {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
-
       name: {
         allowNull: false,
         type: DataTypes.STRING,
+        primaryKey: true,
       },
     },
     {

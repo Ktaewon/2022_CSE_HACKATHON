@@ -30,15 +30,42 @@ const signin = async (email, password, db, session) => {
 
   // 세션에 데이터 저장
   session.email = email;
-  session.role = role;
-  session.name = member.name;
-  session.phone = member.phone;
+  session.nickname = member.nickname;
 
   return {
     message: 'success',
   };
 };
 
+const signup = async (user_info, db, session) => {
+  const getEncryptedPasswordInfo = require('$utils/getEncryptedPasswordInfo.js');
+  console.log(user_info);
+  const { email, password, nickname } = user_info;
+
+  try {
+    password_info = await getEncryptedPasswordInfo(password);
+    await db.User.create({
+      email,
+      nickname,
+      ...password_info,
+    });
+
+    // 세션에 데이터 저장
+    session.email = email;
+    session.nickname = nickname;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const signout = (session) => {
+  session.destroy((err) => {
+    throw err;
+  });
+};
+
 module.exports = {
   signin,
+  signup,
+  signout,
 };

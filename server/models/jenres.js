@@ -16,14 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Jenre.init(
     {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
       name: {
         allowNull: false,
+        primaryKey: true,
         type: DataTypes.STRING,
       },
       createdAt: {

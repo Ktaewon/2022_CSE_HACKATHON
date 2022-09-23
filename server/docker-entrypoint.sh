@@ -2,4 +2,4 @@ echo "wait db server"
 dockerize -wait tcp://db:3306 -timeout 20s 
 
 echo "start node server"
-npm run start
+npm run start_dev
