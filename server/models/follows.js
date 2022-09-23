@@ -1,5 +1,6 @@
 'use strict';
 const { Model, fn } = require('sequelize');
+const User = require('./users.js');
 module.exports = (sequelize, DataTypes) => {
   class Follow extends Model {
     /**
@@ -16,10 +17,18 @@ module.exports = (sequelize, DataTypes) => {
       follower: {
         allowNull: false,
         type: DataTypes.STRING,
+        references: {
+          model: User,
+          key: 'email',
+        },
       },
       followee: {
         allowNull: false,
         type: DataTypes.STRING,
+        references: {
+          model: User,
+          key: 'email',
+        },
       },
     },
     {

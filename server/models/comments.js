@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Comment.belongsTo(models.User, {
-        foreignKey: 'email',
+        foreignKey: 'user_email',
       });
       models.Comment.belongsTo(models.Melody, {
-        foreignKey: 'id',
+        foreignKey: 'melody_id',
       });
       // models.Melody.hasMany(models.Submelody, {
       //   foreignKey: 'melody_id',
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       melody_id: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       user_email: {
         allowNull: false,
