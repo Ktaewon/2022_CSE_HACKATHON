@@ -2,10 +2,10 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
-  const { doAsync } = require('$base/utils/asyncWrapper');
+  const { doAsync } = require('$utils/asyncWrapper.js');
   //const checkClientType = require('$base/utils/checkClientType');
   //const signout = require('./function/signout');
-  const { signin } = require('./authAPI');
+  const { signin, signup, signout } = require('./authAPI');
 
   router.post(
     '/signin',
@@ -21,18 +21,31 @@ module.exports = (db) => {
   );
 
   // router.use('/signup', require('./signup')(db));
+  //회원가입
+  router.post(
+    '/signup',
+    doAsync(async (req, res) => {
+      const user_info = req.body;
 
-  // router.get('/signout', (req, res, next) => {
-  //   try {
-  //     signout(req.session);
+      await signup(user_info, db, req.session);
 
-  //     res.json({
-  //       message: 'success',
-  //     });
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // });
+      res.status(200).json({
+        message: 'success',
+      });
+    })
+  );
+
+  router.get('/signout', (req, res, next) => {
+    try {
+      signout(req.session);
+
+      res.json({
+        message: 'success',
+      });
+    } catch (err) {
+      next(err);
+    }
+  });
 
   return router;
 };
