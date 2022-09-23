@@ -1,5 +1,5 @@
 const signin = async (email, password, db, session) => {
-  const getEncryptedPasswordInfo = require('$base/utils/getEncryptedPasswordInfo');
+  const getEncryptedPasswordInfo = require('$utils/getEncryptedPasswordInfo');
 
   // // 멤버 확인
   // let role = 'user';
@@ -38,7 +38,7 @@ const signin = async (email, password, db, session) => {
 };
 
 const signup = async (user_info, db, session) => {
-  const getEncryptedPasswordInfo = require('$utils/getEncryptedPasswordInfo.js');
+  const getEncryptedPasswordInfo = require('$utils/getEncryptedPasswordInfo');
   console.log(user_info);
   const { email, password, nickname } = user_info;
 
