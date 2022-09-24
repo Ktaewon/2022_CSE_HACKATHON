@@ -4,7 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$utils/asyncWrapper');
   const authenticate = require('$utils/authenticate');
-
+  const { streamAudio } = require('./melodyAPI');
   const multer = require('multer');
   const { Op } = require('sequelize');
 
@@ -174,15 +174,7 @@ module.exports = (db) => {
       if (!playfile) {
         res.status(500).send({ message: '에러남' });
       }
-
-      const myaudio = new Audio(playfile.audio);
-
-      myaudio.play();
-
-      if (!myaudio) {
-        res.status(500).send({ message: '에러남' });
-      }
-      res.status(200).json(myaudio);
+      streamAudio(req, res, filepath);
     })
   );
 
