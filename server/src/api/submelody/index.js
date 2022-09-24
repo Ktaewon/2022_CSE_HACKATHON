@@ -132,18 +132,19 @@ module.exports = (db) => {
     })
   );
 
+  //--------------------------------------------------------------------------------------//
   //서브멜로디 배열로 불러와서 찾아야 할 듯
-  // router.get('/:melody_id', async (req, res) => {
-  // 	const { submelody_id } = req.params;
-  // 	const melody = await db.Melody.findOne({ where: { id: melody_id } });
-  // 	const submelody = await db.Submelody.findAll({
-  //     where: { id:  },
-  //   });
-  //   if (!submelody) {
-  //     res.status(500).send({ message: '에러남' });
-  //   }
-  //   res.status(200).json(submelody);
-  // });
+  router.get('/:melody_id', async (req, res) => {
+    // 	const { submelody_id } = req.params;
+    // 	const melody = await db.Melody.findOne({ where: { id: melody_id } });
+    // 	const submelody = await db.Submelody.findAll({
+    //     where: { id:  },
+    //   });
+    //   if (!submelody) {
+    //     res.status(500).send({ message: '에러남' });
+    //   }
+    //   res.status(200).json(submelody);
+  });
 
   //
   // router.get(

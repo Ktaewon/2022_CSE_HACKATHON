@@ -6,6 +6,7 @@ module.exports = (db) => {
   const authenticate = require('$utils/authenticate');
 
   const multer = require('multer');
+  const { Op } = require('sequelize');
 
   //melody 작성
   //audio 파일은 어떻게 받는지?
@@ -39,6 +40,47 @@ module.exports = (db) => {
         res.status(500).send({ message: '에러남' });
       }
       res.status(200).json(result);
+    })
+  );
+
+  router.get(
+    '/search',
+    doAsync(async (req, res) => {
+      const { search_query } = req.query;
+      const { genre } = req.query;
+      const { instrument } = req.query;
+
+      //양옆 공백 제거
+      search_query.trim();
+      //공백을 %로 replace
+      search_query.replace(' ', '%');
+
+      const search_list = await db.Melody.findAll({
+        where: {
+          [Op.or]: [
+            {
+              title: {
+                [Op.like]: `%${search_query}%`,
+              },
+            },
+            {
+              body: {
+                [Op.like]: `%${search_query}%`,
+              },
+            },
+            { genre: genre },
+            { my_instrument: instrument },
+            { need_instrument: instrument },
+          ],
+        },
+      });
+
+      //장르랑 악기 필터링
+
+      if (search_list.length === 0) {
+        return res.status(500).send({ message: '에러남' });
+      }
+      res.status(200).json(search_list);
     })
   );
 
@@ -95,17 +137,39 @@ module.exports = (db) => {
     })
   );
 
+  //메인멜로디 이미지 업로드
+  router.post(
+    '/image/:melody_id', //몇번 포스트에 올릴건지
+    upload,
+    doAsync(async (req, res) => {
+      const { melody_id } = req.params;
+
+      const melody = await db.Melody.findOne({ where: { id: melody_id } });
+      if (!melody) {
+        res.status(500).send({ message: '에러남' });
+      }
+
+      const image = req.files[0].filename;
+      console.log(req.files);
+
+      const result = await db.Melody.update(
+        { image },
+        { where: { id: melody_id } }
+      );
+
+      if (!result) {
+        res.status(500).send({ message: '에러남' });
+      }
+      res.status(200).json(result);
+    })
+  );
+
   router.get(
     '/audio/:filepath',
     doAsync(async (req, res) => {
       const { filepath } = req.params;
 
-      console.log('받은 파일 이름은 : ' + filepath);
-
       const playfile = await db.Melody.findOne({ where: { audio: filepath } });
-
-      console.log('재생할 파일은: ' + playfile); //조회 완료
-      console.log('재생할 파일 이름은: ' + playfile.audio); //조회 완료
 
       if (!playfile) {
         res.status(500).send({ message: '에러남' });
@@ -121,5 +185,6 @@ module.exports = (db) => {
       res.status(200).json(myaudio);
     })
   );
+
   return router;
 };
