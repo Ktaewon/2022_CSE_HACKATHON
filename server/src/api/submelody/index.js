@@ -11,18 +11,16 @@ module.exports = (db) => {
   router.post(
     '/',
     doAsync(async (req, res) => {
-      const {
-        body: { title, instrument, body, melody_id },
-      } = req;
+      const { title, instrument, body, melody_id } = req.body;
       const user_email = req.session.email;
 
-      const result = await db.Submelody.create(
+      const result = await db.Submelody.create({
         title,
         instrument,
         melody_id,
         body,
-        user_email
-      );
+        user_email,
+      });
 
       if (!result) {
         res.status(500).send({ message: '에러남' });
@@ -31,19 +29,19 @@ module.exports = (db) => {
     })
   );
 
-  //submelody 불러오기
+  //main melody의 submelody 모두 불러오기
   router.get(
     '/',
     doAsync(async (req, res) => {
       const { melody_id } = req.query;
-      const submelody = await db.Submelody.findAll({
+      const submelodies = await db.Submelody.findAll({
         where: { id: melody_id },
       });
 
-      if (!submelody) {
+      if (!submelodies) {
         res.status(500).send({ message: '에러남' });
       }
-      res.status(200).json(submelody);
+      res.status(200).json(submelodies);
     })
   );
 
