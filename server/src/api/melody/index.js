@@ -38,7 +38,9 @@ module.exports = (db) => {
         user_email,
       });
       if (!result) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody Creation Failed');
+        error.statusCode = 500;
+        throw error;
       }
       res.status(200).json(result);
     })
@@ -89,7 +91,9 @@ module.exports = (db) => {
       const { melody_id } = req.params;
       const melody = await db.Melody.findOne({ where: { id: melody_id } });
       if (!melody) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody is not exists.');
+        error.statusCode = 404;
+        throw error;
       }
       res.status(200).json(melody);
     })
@@ -118,7 +122,9 @@ module.exports = (db) => {
 
       const melody = await db.Melody.findOne({ where: { id: melody_id } });
       if (!melody) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody is not exists.');
+        error.statusCode = 400;
+        throw error;
       }
 
       const audio = req.files[0].filename;
@@ -131,7 +137,9 @@ module.exports = (db) => {
       console.log('오디오 이름은 : ' + audio);
 
       if (!result) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody audio update Error');
+        error.statusCode = 500;
+        throw error;
       }
       res.status(200).json(result);
     })
@@ -147,7 +155,9 @@ module.exports = (db) => {
 
       const melody = await db.Melody.findOne({ where: { id: melody_id } });
       if (!melody) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody is not exists.');
+        error.statusCode = 400;
+        throw error;
       }
 
       const image = req.files[0].filename;
@@ -159,7 +169,9 @@ module.exports = (db) => {
       );
 
       if (!result) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody audio update Error');
+        error.statusCode = 500;
+        throw error;
       }
       res.status(200).json(result);
     })
@@ -173,7 +185,9 @@ module.exports = (db) => {
       const playfile = await db.Melody.findOne({ where: { audio: filepath } });
 
       if (!playfile) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Melody audio is not exists');
+        error.statusCode = 500;
+        throw error;
       }
       streamAudio(req, res, filepath);
     })
