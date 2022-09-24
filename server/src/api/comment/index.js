@@ -14,7 +14,7 @@ module.exports = (db) => {
 
       if (!melody_id) {
         const error = new Error('Melody ID is not given.');
-        error.statusCode = 401;
+        error.statusCode = 400;
         throw error;
       }
 
@@ -40,12 +40,11 @@ module.exports = (db) => {
   // Retreive
   router.get(
     '/',
-    authenticate,
     doAsync(async (req, res) => {
       const { melody_id, body } = req.body;
       if (!melody_id) {
         const error = new Error('Melody ID is not given.');
-        error.statusCode = 401;
+        error.statusCode = 400;
         throw error;
       }
 
@@ -74,9 +73,14 @@ module.exports = (db) => {
 
       const result = await db.Comment.findOne({
         where: {
-          melody_id,
+          comment_id,
         },
       });
+      if (!result) {
+        const error = new Error('Comment id is wrong.');
+        error.statusCode = 404;
+        throw error;
+      }
 
       res.status(200).json(result);
     })
@@ -90,7 +94,7 @@ module.exports = (db) => {
       const { comment_id } = req.params;
       if (!comment_id) {
         const error = new Error('Comment ID is not given.');
-        error.statusCode = 401;
+        error.statusCode = 400;
         throw error;
       }
 
@@ -99,6 +103,12 @@ module.exports = (db) => {
           id: comment_id,
         },
       });
+
+      if (result === 0) {
+        const error = new Error('Comment id is wrong.');
+        error.statusCode = 404;
+        throw error;
+      }
 
       res.status(200).json(result);
     })

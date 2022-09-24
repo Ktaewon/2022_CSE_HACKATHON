@@ -3,14 +3,14 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$utils/asyncWrapper');
-  //const checkClientType = require('$base/utils/checkClientType');
-  //const signout = require('./function/signout');
-  const { submelody } = require('./submelodyAPI');
+  const authenticate = require('$utils/authenticate');
+  const { streamAudio } = require('./submelodyAPI');
 
   const multer = require('multer');
   //submelody 작성
   router.post(
     '/',
+    authenticate,
     doAsync(async (req, res) => {
       const { title, instrument, body, melody_id } = req.body;
 
@@ -78,6 +78,7 @@ module.exports = (db) => {
 
   router.post(
     '/audio/:submelody_id', //몇번 포스트에 올릴건지
+    authenticate,
     upload,
     doAsync(async (req, res) => {
       const { submelody_id } = req.params;
@@ -110,40 +111,32 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const { filepath } = req.params;
 
-      console.log('받은 서브파일 이름은 : ' + filepath);
+      console.log('requested streaming audio : ' + filepath);
 
-      const playfile = await db.Melody.findOne({ where: { audio: filepath } });
-
-      console.log('재생할 서브파일은: ' + playfile); //조회 완료
-      console.log('재생할 서브파일 이름은: ' + playfile.audio); //조회 완료
+      const playfile = await db.Submelody.findOne({
+        where: { audio: filepath },
+      });
 
       if (!playfile) {
-        res.status(500).send({ message: '에러남' });
+        return res.status(500).send({ message: '에러남' });
       }
-
-      const myaudio = new Audio(playfile.audio);
-
-      myaudio.play();
-
-      if (!myaudio) {
-        res.status(500).send({ message: '에러남' });
-      }
-      res.status(200).json(myaudio);
+      streamAudio(req, res, filepath);
     })
   );
 
+  //--------------------------------------------------------------------------------------//
   //서브멜로디 배열로 불러와서 찾아야 할 듯
-  // router.get('/:melody_id', async (req, res) => {
-  // 	const { submelody_id } = req.params;
-  // 	const melody = await db.Melody.findOne({ where: { id: melody_id } });
-  // 	const submelody = await db.Submelody.findAll({
-  //     where: { id:  },
-  //   });
-  //   if (!submelody) {
-  //     res.status(500).send({ message: '에러남' });
-  //   }
-  //   res.status(200).json(submelody);
-  // });
+  router.get('/:melody_id', async (req, res) => {
+    // 	const { submelody_id } = req.params;
+    // 	const melody = await db.Melody.findOne({ where: { id: melody_id } });
+    // 	const submelody = await db.Submelody.findAll({
+    //     where: { id:  },
+    //   });
+    //   if (!submelody) {
+    //     res.status(500).send({ message: '에러남' });
+    //   }
+    //   res.status(200).json(submelody);
+  });
 
   //
   // router.get(

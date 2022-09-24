@@ -42,7 +42,7 @@ app.use(
     // 8-2) 수정사항이 생기지 않은 세션 요청이 왔을 때 다시 저장할지
     resave: false,
     // 8-3) 세션에 저장할 내역이 없더라도, 세션 저장할지
-    saveUninitialized: true,
+    saveUninitialized: false,
     // 8-4) 서버가 재시작되어도 세션 유지
     store: sessionStore,
   })
@@ -59,9 +59,10 @@ app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
 // 7) CORS 허용
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', req.header('Origin'));
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
 

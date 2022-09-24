@@ -5,7 +5,7 @@ module.exports = {
     username: env.MYSQL_USER,
     password: env.MYSQL_PASSWORD,
     database: env.MYSQL_DATABASE,
-    host: 'mysql',
+    host: '127.0.0.1',
     dialect: 'mysql',
     pool: {
       max: 5,

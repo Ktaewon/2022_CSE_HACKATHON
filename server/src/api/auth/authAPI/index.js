@@ -13,7 +13,7 @@ const signin = async (email, password, db, session) => {
 
   if (!member) {
     const error = new Error('No Corresponding Member');
-    error.statusCode = 401;
+    error.statusCode = 404;
     throw error;
   }
 
@@ -24,7 +24,7 @@ const signin = async (email, password, db, session) => {
   );
   if (encrypted_password !== member.password) {
     const error = new Error('Password Not Matched');
-    error.statusCode = 401;
+    error.statusCode = 400;
     throw error;
   }
 
@@ -44,6 +44,18 @@ const signup = async (user_info, db, session) => {
 
   try {
     password_info = await getEncryptedPasswordInfo(password);
+    let member = await db.User.findOne({
+      where: {
+        email,
+        is_valid: 1,
+      },
+    });
+    console.log(member);
+    if (member) {
+      const error = new Error('Member is already Exists.');
+      error.statusCode = 400;
+      throw error;
+    }
     await db.User.create({
       email,
       nickname,
