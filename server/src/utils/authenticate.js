@@ -6,7 +6,8 @@ const throwUnauthenticatedError = (next) => {
 
 module.exports = (req, res, next) => {
   // 인증 성공
-  if (req.session) {
+  if (req.session.sid) {
+    console.log('인증 성공');
     next();
   } else {
     throwUnauthenticatedError(next);
