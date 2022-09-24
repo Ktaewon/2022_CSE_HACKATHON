@@ -4,7 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$utils/asyncWrapper');
   const authenticate = require('$utils/authenticate');
-  const { streamAudio } = require('./melodyAPI');
+  const { streamAudio, getGenre, getInstrument } = require('./melodyAPI');
   const multer = require('multer');
   const { Op } = require('sequelize');
 
@@ -54,7 +54,7 @@ module.exports = (db) => {
       search_query.trim();
       //공백을 %로 replace
       search_query.replace(' ', '%');
-
+      console.log('장르는 : ' + genre);
       const search_list = await db.Melody.findAll({
         where: {
           [Op.or]: [
@@ -68,18 +68,16 @@ module.exports = (db) => {
                 [Op.like]: `%${search_query}%`,
               },
             },
-            { genre: genre },
-            { my_instrument: instrument },
-            { need_instrument: instrument },
           ],
+          genre: await getGenre(genre),
+          // { genre: genre },
+
+          my_instrument: await getInstrument(instrument),
+          need_instrument: await getInstrument(instrument),
         },
       });
 
       //장르랑 악기 필터링
-
-      if (search_list.length === 0) {
-        return res.status(500).send({ message: '에러남' });
-      }
       res.status(200).json(search_list);
     })
   );

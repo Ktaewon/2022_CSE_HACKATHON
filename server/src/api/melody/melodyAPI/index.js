@@ -1,3 +1,4 @@
+const db = require('$base/models');
 const fs = require('fs');
 
 const streamAudio = async (req, res, audioPath) => {
@@ -24,6 +25,39 @@ const streamAudio = async (req, res, audioPath) => {
   stream.pipe(res);
 };
 
+async function getGenre(genre) {
+  if (genre === null || genre === undefined) {
+    genre = await db.Genre.findAll({
+      attributes: ['name'],
+      raw: true,
+    });
+    //genre = genre.dataValues;
+    let new_genre = [];
+    for (let i = 0; i < genre.length; i++) {
+      new_genre.push(genre[i].name);
+    }
+    genre = new_genre;
+  }
+  return genre;
+}
+async function getInstrument(instrument) {
+  if (instrument === null || instrument === undefined) {
+    instrument = await db.Instrument.findAll({
+      attributes: ['name'],
+      raw: true,
+    });
+    //genre = genre.dataValues;
+    let new_instrument = [];
+    for (let i = 0; i < instrument.length; i++) {
+      new_instrument.push(instrument[i].name);
+    }
+    instrument = new_instrument;
+  }
+  return instrument;
+}
+
 module.exports = {
   streamAudio,
+  getGenre,
+  getInstrument,
 };
