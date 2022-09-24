@@ -4,7 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$utils/asyncWrapper');
   const authenticate = require('$utils/authenticate');
-
+  const { streamAudio } = require('./melodyAPI');
   const multer = require('multer');
 
   //melody 작성
@@ -100,25 +100,14 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const { filepath } = req.params;
 
-      console.log('받은 파일 이름은 : ' + filepath);
+      console.log('requested streaming audio : ' + filepath);
 
       const playfile = await db.Melody.findOne({ where: { audio: filepath } });
-
-      console.log('재생할 파일은: ' + playfile); //조회 완료
-      console.log('재생할 파일 이름은: ' + playfile.audio); //조회 완료
 
       if (!playfile) {
         res.status(500).send({ message: '에러남' });
       }
-
-      const myaudio = new Audio(playfile.audio);
-
-      myaudio.play();
-
-      if (!myaudio) {
-        res.status(500).send({ message: '에러남' });
-      }
-      res.status(200).json(myaudio);
+      streamAudio(req, res, filepath);
     })
   );
   return router;
