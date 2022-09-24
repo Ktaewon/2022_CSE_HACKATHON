@@ -51,9 +51,10 @@ module.exports = (db) => {
   router.get(
     '/audio',
     doAsync(async (req, res) => {
-      const { melody_id } = req.query;
+      // const { melody_id } = req.query;
+      const { submelody_id } = req.body;
       const submelody = await db.Submelody.findAll({
-        where: { id: melody_id },
+        where: { id: submelody_id },
       });
 
       if (!submelody) {
@@ -75,7 +76,6 @@ module.exports = (db) => {
 
   const upload = multer({ storage }).array('uploadFiles');
 
-  //서브멜로디 오디오 업로드
   router.post(
     '/audio/:submelody_id', //몇번 포스트에 올릴건지
     upload,

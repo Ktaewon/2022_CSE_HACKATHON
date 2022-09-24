@@ -3,9 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$utils/asyncWrapper');
-  //const checkClientType = require('$base/utils/checkClientType');
-  //const signout = require('./function/signout');
-  const { melody } = require('./melodyAPI');
+  const authenticate = require('$utils/authenticate');
 
   const multer = require('multer');
 
