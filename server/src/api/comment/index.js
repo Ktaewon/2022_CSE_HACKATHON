@@ -40,7 +40,6 @@ module.exports = (db) => {
   // Retreive
   router.get(
     '/',
-    authenticate,
     doAsync(async (req, res) => {
       const { melody_id, body } = req.body;
       if (!melody_id) {

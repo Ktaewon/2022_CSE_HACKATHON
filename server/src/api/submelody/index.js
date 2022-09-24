@@ -3,15 +3,14 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$utils/asyncWrapper');
-  //const checkClientType = require('$base/utils/checkClientType');
-  //const signout = require('./function/signout');
-
+  const authenticate = require('$utils/authenticate');
   const { streamAudio } = require('./submelodyAPI');
 
   const multer = require('multer');
   //submelody 작성
   router.post(
     '/',
+    authenticate,
     doAsync(async (req, res) => {
       const { title, instrument, body, melody_id } = req.body;
 
@@ -79,6 +78,7 @@ module.exports = (db) => {
 
   router.post(
     '/audio/:submelody_id', //몇번 포스트에 올릴건지
+    authenticate,
     upload,
     doAsync(async (req, res) => {
       const { submelody_id } = req.params;

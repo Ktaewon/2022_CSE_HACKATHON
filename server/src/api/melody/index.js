@@ -12,6 +12,7 @@ module.exports = (db) => {
   //audio 파일은 어떻게 받는지?
   router.post(
     '/',
+    authenticate,
     doAsync(async (req, res) => {
       const {
         title,
@@ -112,6 +113,7 @@ module.exports = (db) => {
   //멜로디 파일 업로드
   router.post(
     '/audio/:melody_id', //몇번 포스트에 올릴건지
+    authenticate,
     upload,
     doAsync(async (req, res) => {
       const { melody_id } = req.params;
@@ -140,6 +142,7 @@ module.exports = (db) => {
   //메인멜로디 이미지 업로드
   router.post(
     '/image/:melody_id', //몇번 포스트에 올릴건지
+    authenticate,
     upload,
     doAsync(async (req, res) => {
       const { melody_id } = req.params;

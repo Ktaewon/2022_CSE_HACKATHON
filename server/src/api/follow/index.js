@@ -41,7 +41,6 @@ module.exports = (db) => {
   // Retreive
   router.get(
     '/',
-    authenticate,
     doAsync(async (req, res) => {
       const { followee } = req.body;
       if (!follower || !followee || followee === follower) {
