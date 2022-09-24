@@ -1,0 +1,50 @@
+{% extends "base_home.html" %} 
+{% load static %} 
+{% block title %} Log In! {% endblock %} 
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css"> 
+{% endblock %} 
+
+{% block in_container_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type='text/javascript'>
+    function login(){
+        const $email = $(".email").val();
+        const $password = $(".password").val();
+
+        let param = {
+            email: $email,
+            password: $password
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'http://192.168.0.16:5000/api/auth/signin',
+            accepts: 'application/json',
+            contentType: 'application/json',
+            data: JSON.stringify(param),
+            //xhrFields: { withCredentials: true },
+            success: function(response){
+                location.replace('{%url 'home'%}')
+            },
+            error: function(response){
+                console.log('error');
+            },
+        });
+    }
+</script>
+<div class="ContentContainer">
+    <div class="login-form">
+        {% comment %} <form class="login-box"> {% endcomment %}
+        <div class= "login-box">
+            {% csrf_token %}
+            <img src="{% static 'logo.svg' %}" href="#" alt="logo" class ="logo" />
+            <input type="text" name="username" class="email" placeholder="이메일">
+            <br><br>
+            <input type="password" name="password" class="password" placeholder="비밀번호">
+            <button type="submit" class="sign-in-btn" onclick = "login()">로그인</button>
+        </div>
+        {% comment %} </form> {% endcomment %}
+    </div>
+</div>
+{% endblock %}

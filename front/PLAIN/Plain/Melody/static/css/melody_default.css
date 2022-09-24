@@ -1,0 +1,356 @@
+.container-all-1 {
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(180deg, #FCBDBD 0%, rgba(255, 255, 255, 0.0260417) 76.56%, rgba(255, 255, 255, 0) 100%), #9ABCDC;
+    justify-content: space-around;
+    margin-bottom: 0;
+}
+
+.clickHere {
+    border: 1px solid #02d5c6;
+    padding: 3px;
+    text-decoration: none;
+}
+
+.cm_play {
+    width: 4vw;
+    position: relative;
+}
+
+.playButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.musicpart {
+    width: 80vw;
+}
+
+.commmentpart {
+    width: 20vw;
+}
+
+.container1 {
+    width: 75%;
+}
+
+.container1-1 {
+    object-fit: cover;
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+}
+
+.fcol {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.instIcon {
+    width: fit-content;
+}
+
+.ls {
+    justify-content: flex-start;
+}
+
+.container1-1-1 {
+    /* width:800px; */
+    height: 150px;
+    display: flex;
+    margin-left: 20px;
+    margin-top: 18px;
+}
+
+.container1-1-2 {
+    height: 150px;
+    width: 200px;
+    text-align: left;
+}
+
+.container1-2 {
+    /* object-fit: cover;
+    margin-left: 20px; */
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: center;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    ;
+}
+
+.waveclass {
+    width: 100%;
+}
+
+.button {
+    padding-top: 20px;
+    border: none;
+    outline: 0;
+    mix-blend-mode: multiply;
+    background-color: transparent;
+    opacity: 1.0;
+}
+
+#playbutton {
+    font-size: 70px;
+    color: #242424;
+    opacity: 30%;
+    text-align: center;
+}
+
+.class-2 {
+    align-items: center;
+    margin: 18px;
+}
+
+.owner {
+    font-size: 20px;
+}
+
+.title {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.thumbnail {
+    height: 250px;
+    width: 250px;
+}
+
+.class-5 {
+    padding: 10px;
+}
+
+.class-3 {
+    font-size: 30px;
+    left: 0px;
+    text-align: right;
+    padding-top: 20px;
+    margin-top: 5px;
+}
+
+.comment-upload {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    width: 1500px;
+}
+
+.comment-melody {
+    display: flex;
+    padding: 20px;
+}
+
+.small-nav {
+    padding: 20px;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25%;
+}
+
+.text-span {
+    background-color: #C4C4c4;
+    color: #242424;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+.commentpart {
+    width: 19vw;
+}
+
+.container-all-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.subupload-input {
+    border: none;
+    width: 80vw;
+    height: 6vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.subupload {
+    border-bottom: 1px solid rgb(197, 197, 197);
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.real-comment {
+    border-style: solid;
+}
+
+.btnWrapper {
+    margin-left: 1vw;
+    margin-top: 1vw;
+}
+
+.menu {
+    background-color: white;
+    border: 1px solid black;
+}
+
+.together {
+    border: 1px solid #02d5c6;
+    background-color: #02d5c6;
+}
+
+.addmusictext {
+    line-height: 4vh;
+    margin-right: 1vw;
+}
+
+.subupload-form {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    margin: 10px;
+}
+
+.form-select {
+    width: 8vw;
+    height: 4vh;
+    margin-right: 1vw;
+}
+
+#commendInput {
+    display: none;
+}
+
+#subupload-btn {
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 6px;
+    background-color: white;
+    /* width: 10px; */
+    height: 4vh;
+    line-height: 3.5vh;
+    margin-right: 1vw;
+}
+
+.frow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.fcol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-control {
+    width: 550px;
+    height: 3.5vh;
+    margin-right: 1vw;
+}
+
+#upload-btn {
+    width: 100px;
+    height: 4vh;
+    background-color: #02D5C6;
+    border-style: none;
+    font-size: 20px;
+}
+
+#upload-btn:hover {
+    background-color: #02d5c7b6;
+}
+
+.subupload-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: max-content;
+    /* justify-content: center; */
+}
+
+.icon {
+    text-align: center;
+    font-size: 100px;
+    margin-top: 80px;
+    margin-left: 70px;
+}
+
+.card {
+    border: none;
+    border-left: 1px solid rgb(190, 190, 190);
+    border-radius: 0;
+}
+
+.card-con {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteBtn {
+    background-color: #FCBDBD;
+    border: none;
+}
+
+#comment_play {}
+
+#comment_playbutton {
+    font-size: 50px !important;
+    color: #02D5C6;
+}
+
+.comment_waveform {
+    width: 60vw;
+}
+
+.checkText {
+    margin-left: 60vw;
+    font-size: 1.7rem;
+    margin-bottom: -2vh;
+}
+
+.sf {
+    justify-content: flex-start;
+}
+
+#chat-form {
+    margin: 10px;
+}
+
+#chat-area {
+    border-radius: 15px;
+}
+
+#chat-btn {
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    margin-left: 5px;
+    height: 45px;
+}
+
+.chat-con {
+    border-left-style: none !important;
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+.inst-icon {
+    width:200px;
+}
+.png {
+    padding:20px;
+}

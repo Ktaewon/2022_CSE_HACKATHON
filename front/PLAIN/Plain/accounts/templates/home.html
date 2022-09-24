@@ -1,0 +1,86 @@
+{% extends "base_home.html" %} {% load static %} {% block title %} PLAiN - Make your own music {% endblock %} {% block style %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css"> {% endblock %} {% block out_container_content %}
+<div class = "largeshell">
+    <section class= "banner">
+      <div class = "imgshell">
+      <img class = "banner_img" src = "{% static 'img/homeImage.png'%}">
+      </div>
+      <div class = "shell">
+      <div class="banner_title">Connect on PLAY</div>
+      <div class="banner_comment">Discover, stream, and share constantly expanding mix of music <br>for emerging and major artists around the world</div>
+      {% if user.is_authenticated %} {% else %}
+        <button class="signinbutton" onclick="location.href = '/accounts/signup'">시작하기</button> {% endif %}
+      </div>
+    </section>
+  </div>
+
+<div class="bodyClass">
+  <div class = "search">
+    <div class="searchAndBtn">
+        <div class="searchBar">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="아티스트, 음원, 악기 등을 검색해보세요!" aria-label="Search">
+                <button class="btn" type="submit">🎧</button>
+                <div class="or"> 또는 </div>
+            </form>
+        </div>
+        <div class="uploadBtnWrapper">
+            {% if user.is_authenticated %}
+            <button class="uploadBtn" onclick="location.href = '/melody'">업로드하기</button> {% else %}
+            <button class="uploadBtn" onclick="location.href = '/accounts/login'">업로드하기</button> {% endif %}
+
+        </div>
+        <br>
+    </div>
+  </div>
+
+    <div class="ContentWrapper">
+        <div class="progressMusic">
+            <div class="PMB">
+                <div class="progressTitle Title">진행중인 음악</div>
+                <div class="moreBtn">More ></div>
+            </div>
+            <div class="progressImg">
+                {% for art in melodys %}
+                    <!--image받은 것!-->
+                    <a href="{% url 'default' art.id %}"><img class="albumart" src="{{art.img.url}}" alt="My Image" width="100" height="200">
+                    </a>   <!--views.py에서 필요로하는 인자값이 두개이므로 두개-->
+                {% endfor %}
+                <img class="albumart" src="{% static 'img/4.png' %}">
+                <img class="albumart" src="{% static 'img/5.png' %}">
+                <img class="albumart" src="{% static 'img/6.png' %}">
+            </div>
+        </div>
+        <div class="completeMusic">
+            <div class="CMB">
+                <div class="completeTitle Title">완성된 음악</div>
+                <div class="moreBtn">More ></div>
+            </div>
+            <div class="completeImg">
+                
+                <a href="{% url 'default' 1 %}">
+                    <img class="albumart" src="{% static 'img/1.png' %}">
+                </a>
+                <a href="{% url 'default' 2 %}">
+                    <img class="albumart" src="{% static 'img/2.png' %}">
+                </a>
+                <a href="{% url 'default' 3 %}">
+                    <img class="albumart" src="{% static 'img/3.png' %}">
+                </a>
+                
+
+                <!--
+                {% for art in melodys %}
+                    --image받은 것!
+                    
+                    <a href="{% url 'default' art.id %}"><img class="albumart" src="{{art.img.url}}" alt="My Image" width="100" height="200">
+                    </a>   --views.py에서 필요로하는 인자값이 두개이므로 두개
+                {% endfor %}
+                -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block script %} {% endblock %}

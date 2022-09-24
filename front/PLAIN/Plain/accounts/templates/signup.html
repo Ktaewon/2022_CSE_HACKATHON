@@ -1,0 +1,125 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% block title %}
+Sign up!
+{% endblock %}
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" type="text/css">
+{% endblock %}
+
+{% block in_container_content %}
+{% if error %}
+{{error}}
+{% endif %}
+<script type = "text/javascript">
+    function showfieldGenre(name){
+        console.log('hi');
+        if(name=='OtherGenre')document.getElementById('otherGenre').innerHTML='<input type="text" name="other" style = "margin-left: 10px; width: 200px; height: 40px; border: 1.5px solid #ccc; padding: 0px 10px" maxlength = "30"/>';
+        else document.getElementById('otherGenre').innerHTML='';
+      }
+    function showfieldInst(name){
+        if(name=='OtherInst')document.getElementById('otherInst').innerHTML='<input type="text" name="other" style = "margin-left: 10px;  width: 200px; height: 40px; border: 1.5px solid #ccc; padding: 0px 10px"  maxlength = "30"/>';
+        else document.getElementById('otherInst').innerHTML='';
+    }
+    function signup(){
+        const $email = $(".email").val();
+        const $password = $(".password1").val();
+        const $nickname = $(".nickname").val();
+
+        let param = {
+            email: $email,
+            password: $password,
+            nickname: $nickname
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://192.168.0.16:5000/api/auth/signup',
+            accepts: 'application/json',
+            contentType: 'application/json',
+            data: JSON.stringify(param),
+            xhrFields: {
+                withCredentials:true
+            },
+            success: function(data, status, xhr){
+                console.log(xhr.getResponseHeader("Set-Cookie"));
+               // location.replace('{%url 'home'%}');
+            },
+            error: function(response){
+                console.log('error');
+            },
+        });
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<div class="signup-form">
+    {% comment %} <form method="POST" class="signup-box" enctype="multipart/form-data"> {% endcomment %}
+        {% csrf_token %}
+        <img src="{% static 'logo.svg' %}" href="#" alt="logo" class ="logo" />
+        {% comment %} Profile Image {% endcomment %}
+        {% comment %} <div class="img_preview" id="img_up">
+            <input type="file" id="imgInput" name="imgInput" class="image_inputType_file" accept="img/*" required>
+            <img src="" class="" alt="..." id="img" name="img" onError="this.style.visibility='hidden'">
+            <div class="img-text">
+                Click to upload your Profile Image
+            </div>
+        </div> {% endcomment %}
+        <br>
+        <div class = "requirement">이메일</div>
+        <input type="text" name="email" class="email info" >
+        <br>
+        <br>
+        <div class = "requirement">닉네임</div>
+        <input type="text" name="nickname" class="nickname info" maxlength = "50" >
+        <br>
+        <br>
+        <div class = "requirement">비밀번호</div>
+        <input type="password" name="password1" class="password1 info" >
+        <br><br>
+        <div class = "requirement">비밀번호 확인</div>
+        <input type="password" name="password2 " id="password2" class="password2 info">
+        <br><br>
+        {% comment %} <div class = "selection-wrapper">
+            <div class = "requirement selection-req">
+                주로 연주하시는 음악 장르가 무엇인가요?
+            </div>
+            <div class= "selectWrapper">
+                <select class="genre-select " title="genre" id="genre" name="genre" onchange="showfieldGenre(this.options[this.selectedIndex].value)">
+                    <option disabled selected>선택</option>
+                    <option value="classic">클래식</option>
+                    <option value="R&B">R&B</option>
+                    <option value="Hiphop">힙합</option>
+                    <option value="Rock">락</option>
+                    <option value="OtherGenre">직접 입력</option>
+                </select>
+                <div id="otherGenre"></div>
+            </div>
+        </div>
+        <br>
+        <div class = "selection-wrapper">
+            <div class = "requirement selection-req">가장 잘 다루는 악기가 무엇인가요?</div>
+            <div class = "selectWrapper">
+                <select class="instrument-select" title="instrument" id="instrument" name="instrument" onchange="showfieldInst(this.options[this.selectedIndex].value)">
+                    <option disabled selected>선택</option>
+                    <option value="Piano">피아노</option>
+                    <option value="Drum">드럼</option>
+                    <option value="Guitar">기타</option>
+                    <option value="Synthesizer">신시사이저</option>
+                    <option value="OtherInst">직접 입력</option>
+                </select>
+                <div id="otherInst"></div>
+            </div>
+        </div>
+        <br>
+        <div class = "requirement">프로필 메시지를 입력해 주세요.</div>
+        <input type="text" id="profile_message" name="profile_message" class="message info" placeholder = "0/100" maxlength="100"> {% endcomment %}
+        <br>
+        <button type="submit" class="sign-up-btn" onclick="signup()">가입하기</button>
+    {% comment %} </form> {% endcomment %}
+</div>
+{% endblock %}

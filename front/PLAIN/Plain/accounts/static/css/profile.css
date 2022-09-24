@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-text {
+    margin-left: 100px;
+}
+
+.profile {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-content {
+    /* padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; */
+    display: flex;
+    align-items: center;
+}
+
+.fcol {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.frow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profile-content img {
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    left: 20px;
+}
+
+.profile-wrapper {
+    border: 1px solid black;
+}
+
+.profile-music {
+    border: 1px solid blue;
+    width: 600px;
+    height: 167px;
+    background: linear-gradient(180deg, #FABEBE, #9ABCDC);
+}
+
+.recommend-music {
+    width: 20vw;
+    height: 80vh;
+    border: 1px solid black;
+}
+
+.mymusiclist {
+    width: 70vw;
+    height: 50vh;
+    border: 1px solid black;
+}

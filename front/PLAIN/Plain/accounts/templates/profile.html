@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" type="text/css">
+{% endblock %}
+
+{% block out_container_content %}
+    <div class="frow">
+        <div class="fcol">
+            <div class="profile-wrapper frow">
+                <div class="profile-top">
+                    <div class="profile"></div>
+                    <div class="profile-content">
+                        <img
+                            class="round"
+                            style="border-radius: 50%"
+                            src="{{ user.img }}"
+                            width="80"
+                            height="80">
+                        <div class="profile-text">
+                            name:
+                            {{user.nickname}}
+                            <br>
+                            genre :
+                            {{user.genre}}
+                            <br>
+                            position :
+                            {{user.instrument}}
+                            <br>
+                            {{user.profile_message}}
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-music">
+                    HI
+                </div>
+            </div>
+            <div class="mymusiclist frow">
+            
+                BOX
+            </div>
+        </div>
+        <div class="recommend-music fcol">HIHIHI</div>
+    </div>
+{% endblock %}

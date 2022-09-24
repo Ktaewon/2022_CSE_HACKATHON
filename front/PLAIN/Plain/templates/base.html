@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+        <a href="/accounts/home">
+            <img src="{% static 'logo.svg' %}" class="navbar-brand" href="#" alt="logo"  />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Stream</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Library</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search for artists, bands, tracks, instruments" aria-label="Search">
+                    <button class="btn" type="submit">🎧</button>
+                </form>
+                <ul class="navbar-nav mb-2 mb-lg-0" id="navbar-nav-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/melody">Upload</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{user.nickname}}</a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px;">
+                        <img class="nav-link" href="#" src="{% static 'notifications.png' %}" style="height: 40px;" />
+                    </li>
+                    <li class="nav-item" style="margin-right: 0;">
+                        <img class="nav-link" href="#" src="{% static 'More.png' %}" style="height: 40px;" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="out">
+        {% block out_container_content %}
+        {% endblock %}
+    </div>
+    <div class="container">
+        {% block in_container_content %}
+        {% endblock %}
+    </div>
+    
+    {% block script %}{% endblock %}
+</body>
+
+<footer class="row">
+    <div class="footer-content">
+        <a href="/" class="d-flex align-items-center mb-2 link-dark text-decoration-none">
+        <div class="col">
+            © 2021 Yogurt, Inc
+        </div>
+        <div class="col">
+            Terms
+        </div>
+        <div class="col text-align-center">
+        Privacy
+        </div>
+        <div class="col">
+            Security
+        </div>
+        <div class="col">
+            Status
+        </div>
+        <div class="col">
+            Docs
+        </div>
+        <div class="col">
+        <img src="{% static 'logo.svg' %}" width="50" id="footer-logo">
+        </div>
+        <div class="col">
+            Contact Yogurt
+        </div>
+        <div class="col">
+            Pricing
+        </div>
+        <div class="col">
+            API
+        </div>
+        <div class="col">
+            Training
+        </div><div class="col">
+            Blog
+        </div><div class="col">
+            About
+        </div>
+    </div>
+</footer>
+</html>

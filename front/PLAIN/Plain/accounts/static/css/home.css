@@ -1,0 +1,177 @@
+@font-face {
+  font-family: "Shrikhand";
+  src: url("../Shrikhand-Regular.ttf");
+}
+.largeshell {
+  width: 100%;
+}
+.imgshell {
+  width: 1500px;
+}
+.banner_img {
+  filter: brightness(80%);
+  position: absolute;
+  top: 0px;
+  width: auto;
+  min-width: 100%;
+  height: 400px;
+}
+section {
+  display: block;
+  width: 100%;
+  height: 400px;
+  color: #ffffff;
+  position: relative;
+}
+.shell {
+  width: 1300px;
+  height: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.banner_title {
+  position: relative;
+  z-index: 1000;
+  width: 1250px;
+  top: 20%;
+  font-family: "Shrikhand";
+  margin: auto 0;
+  color: #ff7a00;
+  font-size: 5em;
+}
+
+.banner_comment {
+  position: relative;
+  z-index: 1000;
+  width: 1250px;
+  top: 20%;
+  transform: translateY(-20%);
+  color: #ffffff;
+  margin: 0 auto;
+  font-size: 1.3rem;
+}
+.banner {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.signinbutton {
+  position: relative;
+  z-index: 1000;
+  top: 30%;
+  transform: translateY(-30%);
+  border-radius: 6px;
+  height: 3rem;
+  width: 9rem;
+  border: none;
+  background-color: #ff7a00;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.bodyClass {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.search {
+  width: 1300px;
+  margin: 0 auto;
+}
+.searchAndBtn {
+  display: block;
+  width: fit-content;
+  min-width: fit-content;
+  height: fit-content;
+  margin: 3vh auto;
+  line-height: 40px;
+}
+
+.searchBar {
+  float: left;
+}
+
+.form-control {
+  height: 40px;
+}
+
+.btn {
+  height: 40px;
+}
+
+.or {
+  margin-left: 10px;
+}
+
+.Title {
+  font-size: 1.7rem;
+  font-weight: 400;
+}
+
+.uploadBtnWrapper {
+  float: left;
+  margin-left: 10px;
+}
+
+.uploadBtn {
+  width: 150px;
+  border: none;
+  background-color: #ff7a00;
+  color: white;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.ContentWrapper {
+  /* position: absolute; */
+  display: flex;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  /* margin-top: 10vh; */
+}
+
+.CMB {
+  display: flex;
+  position: relative;
+  width: 600px;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+.moreBtn {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
+.PMB {
+  display: flex;
+  position: relative;
+  width: 600px;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+.completeMusic {
+  display: block;
+  padding: 20px;
+  margin-left: 10px;
+  width: 650px;
+}
+
+.progressMusic {
+  display: block;
+  padding: 20px;
+  width: 650px;
+  margin-right: 0;
+  border-right: 0.5px solid #cccaca;
+}
+
+.albumart {
+  margin-right: 20px;
+  width: 180px;
+  height: 180px;
+  cursor: pointer;
+}

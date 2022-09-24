@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Upload Your Melody
+{% endblock %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/melody_upload.css' %}" type="text/css">
+{% endblock %}
+
+{% block out_container_content %}
+<div class="banner">
+    <div class="banner_title">UPLOAD</div>
+    <img class="banner_img" id="upload_bg" src="{% static 'images/upload_bg.png' %}">
+</div>
+{% endblock %}
+
+
+
+{% block in_container_content %}
+<script type = "text/javascript">
+    function showfieldMyInst(name){
+        if(name=='OtherMyInst')document.getElementById('otherMyInst').innerHTML='<input type="text" name="other" style = "margin-left: 10px; width: 200px; height: 40px; border: 1.5px solid #ccc; padding: 0px 10px" maxlength = "30"/>';
+        else document.getElementById('otherMyInst').innerHTML='';
+      }
+    function showfieldOtherInst(name){
+        if(name=='OtherInst')document.getElementById('otherInst').innerHTML='<input type="text" name="other" style = "margin-left: 10px;  width: 200px; height: 40px; border: 1.5px solid #ccc; padding: 0px 10px"  maxlength = "30"/>';
+        else document.getElementById('otherInst').innerHTML='';
+    }
+    function disappearImgTxt(){
+        document.getElementById('imgInput').onChange = function(){document.getElementById('img-text').style.visibility = 'hidden'};
+    }
+</script>
+<form class="was-validated f1" action="{% url 'upload'  %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="frow">
+        <div class="fcol">
+            <div class="mb-3 title">
+                <label for="validationTextarea" class="form-label">1. 제목</label>
+                <input class="form-control " type="text" required name="title">
+                <div class="invalid-feedback">
+                제목을 입력해 주세요.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="deadline" class="form-label">2. 음악을 연주한 악기를 선택해 주세요.</label>
+                <div class="selectWrapper">
+                <select class="form-select" required aria-label="select example" name="mine" onchange="showfieldMyInst(this.options[this.selectedIndex].value)">
+                    <option disabled selected>선택</option>
+                    <option value="1">피아노</option>
+                    <option value="2">기타</option>
+                    <option value="3">베이스</option>
+                    <option value="4">드럼</option>
+                    <option value="OtherMyInst">직접 입력</option>
+                </select>
+                <div id="otherMyInst"></div>
+            </div>
+                <div class="invalid-feedback">악기를 선택해 주세요.</div>
+            </div>
+            <div class="mb-3">
+                <label for="deadline" class="form-label">3. 음악을 완성시키기 위해 필요한 악기들을 선택해 주세요.</label>
+                <button type="button" class="btn btn-info btn-inst" id="inst_add">+</button>
+                <button type="button" class="btn btn-danger btn-inst" id="inst_del">-</button>
+                <div id="inst-con">
+                    <div class="selectWrapper">
+                    <select class="form-select" aria-label="select example" onchange="showfieldOtherInst(this.options[this.selectedIndex].value)">
+                        <option disabled selected>선택</option>
+                        <option value="1">피아노</option>
+                        <option value="2">기타</option>
+                        <option value="3">베이스</option>
+                        <option value="4">드럼</option>
+                        <option value="OtherInst">직접 입력</option>
+                    </select>
+                    <div id="otherInst"></div>
+                </div>
+                </div>
+            </div>
+            <div class="mb-3 date">
+                <label for="deadline" class="form-label">4. 마감일</label>
+                <input id="deadline" type="date" class="form-control" required name="deadline">
+                <div class="invalid-feedback">마감일을 지정해 주세요.</div>
+            </div>
+            <div class="mb-3">
+                <label for="hashtags" class="form-label" >5. 해시태그</label>
+                <p id="hp" class="prow">
+                    <input id="hashtags" type="text" class="form-control">
+                    <button type="button" class="btn btn-secondary" id="hashtag-btn">추가하기</button>
+                </p>
+                <div id="hash-con">
+                    <span id="hash">#Plain</span>
+                </div>
+                <div id="hashtag_all_div" display="none">
+                    <textarea id="hashtag_data" name="hashtag_data"></textarea>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="validationTextarea" class="form-label">6. 한줄소개</label>
+                <br>
+                <textarea class="form-control is-invalid" id="validationTextarea" name="body"></textarea>
+            </div>
+        </div>
+        <div class="fcol">
+            <div class="img_preview mb-3" id="img_up">
+                <input type="file" id="imgInput" name="imgInput" class="image_inputType_file" accept="img/*" required>
+                <img src="" class="rounded mx-auto d-block" alt="..." id="image_section" name="image_section" onError="this.style.visibility='hidden'" style="border-radius: 27px;" >
+                <div class="fcol">
+                    <div class="img-text">
+                        <i class="far fa-image"></i>
+                        <p>앨범아트 업로드</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 umelody fcol" id="up_mel">
+                <div class="mel-text">
+                    <p>음악 업로드<br>(mp3, wav, etc...)</p>
+                </div>
+                <i class="fas fa-music"></i>
+                <div>
+                    <input type="file" id="melodyInput" name="melodyInput" class="" accept="audio/*" required>
+                    <div id="music_name"></div>
+                </div>
+                <audio src="" id="audio_section" controls>오디오 플레이어가 지원되지 않습니다.</audio>
+            </div>
+        </div>
+    </div>
+    
+    <div class="frow">
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+            <label class="form-check-label" for="validationFormCheck1">Allow use your Melody to advertisement.</label>
+            <div class="invalid-feedback">Please Check and upload your music!</div>
+        </div>
+    </div>
+    <div class="frow">
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit" id="upload-btn" >Upload</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block script %}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="{% static 'js/melody_upload5.js' %}"></script>
+{% endblock %}

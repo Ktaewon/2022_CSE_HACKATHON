@@ -1,0 +1,76 @@
+.navbar {
+    border-bottom: 1px solid #E5E9F2;
+    height: 55px;
+    font-family: inherit;
+    font-size: 17px;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+.navbar-brand {
+    width: 100px;
+    margin-left: 10px;
+    margin-right: 30px;
+}
+
+.btn {
+    padding: 0;
+    height: 29px;
+}
+
+li {
+    margin-right: 32px;
+}
+
+button {
+    border-radius: 6px;
+    height: 40px;
+    width: 97px;
+    line-height: 20px;
+}
+
+.signInBtn {
+    border: 1px solid #7a7a7a;
+    background-color: white;
+    margin-right: 20px;
+    color: #7a7a7a;
+}
+
+.signUpBtn {
+    border: none;
+    background-color: #02d5c6;
+    color: white;
+}
+
+.d-flex {
+    margin: auto;
+    height: 29px;
+    /* width: 400px; */
+}
+
+.form-control {
+    width: 700px;
+    background: #E0E0E0;
+    opacity: 0.5;
+    border-radius: 8px;
+}
+
+.form-select {
+    border: none;
+    line-height: 29px;
+    cursor: pointer;
+    box-shadow: none!important;
+    width: 6rem;
+}
+
+#navbar-nav-right {
+    position: absolute;
+    right: 30px;
+    margin-right: 0;
+}
+
+.out {
+    margin-bottom: 50px;
+}
