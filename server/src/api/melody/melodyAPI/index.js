@@ -5,7 +5,7 @@ const streamAudio = async (req, res, audioPath) => {
   audioPath = `${__dirname}/../../../../uploads/${audioPath}`;
   const audioStat = await fs.promises.stat(audioPath);
   const audioSize = audioStat.size;
-  const chunkSize = (1 * 1e6) / 2; //  1MB
+  const chunkSize = (1 * 1e6) / 4; //  1MB
   const start = Number(range.replace(/\D/g, ''));
   const end = Math.min(start + chunkSize, audioSize - 1);
 

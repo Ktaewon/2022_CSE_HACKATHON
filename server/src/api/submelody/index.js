@@ -5,7 +5,8 @@ module.exports = (db) => {
   const { doAsync } = require('$utils/asyncWrapper');
   //const checkClientType = require('$base/utils/checkClientType');
   //const signout = require('./function/signout');
-  const { submelody } = require('./submelodyAPI');
+
+  const { streamAudio } = require('./submelodyAPI');
 
   const multer = require('multer');
   //submelody 작성
@@ -110,25 +111,16 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const { filepath } = req.params;
 
-      console.log('받은 서브파일 이름은 : ' + filepath);
+      console.log('requested streaming audio : ' + filepath);
 
-      const playfile = await db.Melody.findOne({ where: { audio: filepath } });
-
-      console.log('재생할 서브파일은: ' + playfile); //조회 완료
-      console.log('재생할 서브파일 이름은: ' + playfile.audio); //조회 완료
+      const playfile = await db.Submelody.findOne({
+        where: { audio: filepath },
+      });
 
       if (!playfile) {
-        res.status(500).send({ message: '에러남' });
+        return res.status(500).send({ message: '에러남' });
       }
-
-      const myaudio = new Audio(playfile.audio);
-
-      myaudio.play();
-
-      if (!myaudio) {
-        res.status(500).send({ message: '에러남' });
-      }
-      res.status(200).json(myaudio);
+      streamAudio(req, res, filepath);
     })
   );
 
