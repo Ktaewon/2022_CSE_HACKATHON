@@ -16,13 +16,13 @@ module.exports = (db) => {
 
       const user_email = req.session.email;
 
-      const result = await db.Submelody.create(
+      const result = await db.Submelody.create({
         title,
         instrument,
         melody_id,
         body,
-        user_email
-      );
+        user_email,
+      });
 
       if (!result) {
         res.status(500).send({ message: '에러남' });
