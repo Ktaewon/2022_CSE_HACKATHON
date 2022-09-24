@@ -7,13 +7,13 @@ module.exports = (db) => {
   //const signout = require('./function/signout');
   const { submelody } = require('./submelodyAPI');
 
+  const multer = require('multer');
   //submelody 작성
   router.post(
     '/',
     doAsync(async (req, res) => {
-      const {
-        body: { title, instrument, body, melody_id },
-      } = req;
+      const { title, instrument, body, melody_id } = req.body;
+
       const user_email = req.session.email;
 
       const result = await db.Submelody.create(
@@ -31,7 +31,7 @@ module.exports = (db) => {
     })
   );
 
-  //submelody 불러오기
+  //submelody 전체 불러오기
   router.get(
     '/',
     doAsync(async (req, res) => {
@@ -44,6 +44,91 @@ module.exports = (db) => {
         res.status(500).send({ message: '에러남' });
       }
       res.status(200).json(submelody);
+    })
+  );
+
+  //선택한 submelody 불러오기
+  router.get(
+    '/audio',
+    doAsync(async (req, res) => {
+      const { melody_id } = req.query;
+      const submelody = await db.Submelody.findAll({
+        where: { id: melody_id },
+      });
+
+      if (!submelody) {
+        res.status(500).send({ message: '에러남' });
+      }
+      res.status(200).json(submelody);
+    })
+  );
+
+  //submelody 오디오 올리기
+  let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now().valueOf()}_${file.originalname}`);
+    },
+  });
+
+  const upload = multer({ storage }).array('uploadFiles');
+
+  //서브멜로디 오디오 업로드
+  router.post(
+    '/audio/:submelody_id', //몇번 포스트에 올릴건지
+    upload,
+    doAsync(async (req, res) => {
+      const { submelody_id } = req.params;
+
+      const melody = await db.Submelody.findOne({
+        where: { id: submelody_id },
+      });
+      if (!melody) {
+        res.status(500).send({ message: '에러남' });
+      }
+
+      const audio = req.files[0].filename;
+      console.log(req.files);
+
+      const result = await db.Submelody.update(
+        { audio },
+        { where: { id: submelody_id } }
+      );
+      console.log('오디오 이름은 : ' + audio);
+
+      if (!result) {
+        res.status(500).send({ message: '에러남' });
+      }
+      res.status(200).json(result);
+    })
+  );
+
+  router.get(
+    '/audio/:filepath',
+    doAsync(async (req, res) => {
+      const { filepath } = req.params;
+
+      console.log('받은 서브파일 이름은 : ' + filepath);
+
+      const playfile = await db.Melody.findOne({ where: { audio: filepath } });
+
+      console.log('재생할 서브파일은: ' + playfile); //조회 완료
+      console.log('재생할 서브파일 이름은: ' + playfile.audio); //조회 완료
+
+      if (!playfile) {
+        res.status(500).send({ message: '에러남' });
+      }
+
+      const myaudio = new Audio(playfile.audio);
+
+      myaudio.play();
+
+      if (!myaudio) {
+        res.status(500).send({ message: '에러남' });
+      }
+      res.status(200).json(myaudio);
     })
   );
 
