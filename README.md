@@ -27,7 +27,6 @@
 
 ### 💻 Member
 
-<div align="center">
 
 | 🧑 Front | 🧑 Back | 🧑 Back | 
 | :---: | :---: | :---: | 
