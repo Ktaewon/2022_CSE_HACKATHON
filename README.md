@@ -24,3 +24,11 @@
 
 - Backend : NodeJs, ExpressJs, EC2, Route53
 - Frontend : Django, html, css, javascript
+
+### 💻 Member
+
+<div align="center">
+
+| 🧑 Front | 🧑 Back | 🧑 Back | 
+| :---: | :---: | :---: | 
+| 박상원 | 김태원 | 박윤주 |
