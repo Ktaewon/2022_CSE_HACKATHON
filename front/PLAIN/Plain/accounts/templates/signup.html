@@ -35,19 +35,20 @@ Sign up!
             password: $password,
             nickname: $nickname
         }
-
         $.ajax({
             type: 'POST',
-            url: 'http://192.168.0.16:5000/api/auth/signup',
+            url: 'https://a465-221-166-128-96.ngrok.io/api/auth/signup',
             accepts: 'application/json',
             contentType: 'application/json',
             data: JSON.stringify(param),
             xhrFields: {
                 withCredentials:true
             },
+            crossDomain: true,
+            datatype: 'json',
             success: function(data, status, xhr){
-                console.log(xhr.getResponseHeader("Set-Cookie"));
-               // location.replace('{%url 'home'%}');
+                console.log('success');
+                //location.replace('{%url 'home'%}');
             },
             error: function(response){
                 console.log('error');

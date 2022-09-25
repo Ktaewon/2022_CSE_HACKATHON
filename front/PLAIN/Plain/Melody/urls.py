@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path("", views.melody),
     path("uploads/", views.upload_melody, name="upload"),
-    path("detail/<str:id>", views.detail, name="detail"),
+    path("detail/", views.detail, name="detail"),
     path('comment/<str:id>', views.createcomment, name='comment'),
     path("default/<str:id>", views.detail, name="default"),
     path('preview',views.preview,name="preview"),

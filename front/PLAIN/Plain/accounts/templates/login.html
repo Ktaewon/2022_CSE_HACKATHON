@@ -12,20 +12,20 @@
     function login(){
         const $email = $(".email").val();
         const $password = $(".password").val();
-
         let param = {
             email: $email,
             password: $password
         }
         $.ajax({
             type: 'POST',
-            url: 'http://192.168.0.16:5000/api/auth/signin',
+            url: 'https://a465-221-166-128-96.ngrok.io/api/auth/signin',
             accepts: 'application/json',
             contentType: 'application/json',
             data: JSON.stringify(param),
-            //xhrFields: { withCredentials: true },
-            success: function(response){
-                location.replace('{%url 'home'%}')
+            xhrFields: { withCredentials: true },
+            success: function(data, status, xhr){
+                console.log('hi');
+                //location.replace('{%url 'home'%}');
             },
             error: function(response){
                 console.log('error');

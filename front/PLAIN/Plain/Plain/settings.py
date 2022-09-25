@@ -23,12 +23,13 @@ SECRET_KEY = 'django-insecure-gy8+r6o2%@qhq0kbaz3*_=vx^+6(x^5s4ujml(^iqu$g$_^y5j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ceb4-221-166-128-96.ngrok.io',
+    '127.0.0.1',
+]
 
 
 # Application definition
-LOGIN_REDIRECT_URL = '/'
-AUTH_USER_MODEL = 'registration.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     'taggit', #Tags for Melody
     'accounts',
     'corsheaders',
-    'registration',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +133,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

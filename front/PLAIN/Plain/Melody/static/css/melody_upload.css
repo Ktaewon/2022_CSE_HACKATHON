@@ -50,7 +50,7 @@ label {
 .frow {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .prow {
@@ -59,30 +59,37 @@ label {
 }
 
 .img_preview {
-  /* display: flex; */
-  /*float: left !important;*/
   cursor: pointer;
   flex-direction: column;
   width: 300px;
   height: 300px;
-  margin: 20px;
+  margin: 0px auto;
   background-color: #f0f0f0;
-  /* border-radius: 27px; */
   position: relative;
-  /* border-radius: 27px; */
 }
 
 .img_preview .img-text {
   position: absolute;
-  top: 120px;
-  left: 10px;
-  color: #d3d3d3;
+  color: #a6a6a6;
   font-weight: bold;
   text-align: center;
-  font-size: 17px;
-  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  font-size: 1rem;
+}
+.albumart{
+  width: 300px;
+  height: 300px;
+}
+.img_preview{
+  left: 10px;
 }
 
+.img-text{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform:translate(-50%, -50%);
+  margin: 0px auto;
+}
 #hashtag_all_div {
   display: none;
 }
@@ -94,6 +101,7 @@ label {
 
 #image_section {
   border-style: none;
+  overflow: hidden;
   /* border-radius: 27px; */
   /* border-style: none; */
   /*
@@ -126,7 +134,7 @@ label {
 #hash {
   border-style: none;
   /* border-radius: 5px; */
-  background-color: lightgrey;
+  /* background-color: #ccc; */
   padding: 3px;
   margin: 5px;
 }
@@ -200,10 +208,10 @@ label {
   width: 300px;
   height: 300px;
   margin: 20px;
+  margin-left: 40px;
   position: relative;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 27px;
   border-style: none;
   background-color: #f0f0f0;
 }

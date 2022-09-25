@@ -3,9 +3,17 @@ from .models import User
 from django.contrib import auth
 from django.apps import apps
 import simplejson as json
+# from flask import request
+# import re
 
+# regex = re.compile('^HTTP_')
+# dict((regex.sub('', header), value) for (header, value) 
+#        in request.META.items() if header.startswith('HTTP_'))
 def signup(request):
+    # if request.META.get('HTTP_DATE'):
+    # return request.META.get('HTTP_DATE');
     if request.method == "POST":
+        # request.META['HTTP_MY_HEADER'] 
         if request.POST['password1'] == request.POST['password2']:
             user=User.objects.create_user(request.POST['username'], password=request.POST['password1'])
             auth.login(request, user)
@@ -39,6 +47,38 @@ def login(request):
             return render(request, 'login.html', {'error': 'username or password is incorrect'})
     else:
         return render(request, 'login.html')
+    
+# def login(request):
+#     # 해당 쿠키에 값이 없을 경우 None을 return 한다.
+#     if request.COOKIES.get('connect.sid') is not None:
+#         email = request.COOKIES.get('email')
+#         password = request.COOKIES.get('password')
+#         user = auth.authenticate(request, email=email, password=password)
+#         if user is not None:
+#             auth.login(request, user)
+#             return redirect('home')  
+#         else:
+#             return render(request, 'login.html')
+
+#     elif request.method == "POST":
+#         email = request.POST["email"]
+#         password = request.POST["password"]
+#         # 해당 user가 있으면 username, 없으면 None
+#         user = auth.authenticate(request, email=email, password=password)
+
+#         if user is not None:
+#             auth.login(request, user)
+#             if request.POST.get("keep_login") == "TRUE":
+#                 response = render(request, 'home.html')
+#                 response.set_cookie('email',email)
+#                 response.set_cookie('password',password)
+#                 return response
+#             return redirect('home')
+#         else:
+#             return render(request, 'login.html', {'error':'username or password is incorrect'})
+#     else:
+#         return render(request, 'login.html')
+#     return render(request, 'login.html') 
 
 def home(request):
         Melody=apps.get_model('Melody',"Melody")

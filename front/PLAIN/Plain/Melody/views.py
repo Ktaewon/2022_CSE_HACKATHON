@@ -11,42 +11,42 @@ def melody(request):
     #return render(request, 'melody_upload.html', {'form' : form })
     return render(request, 'melody_upload.html')
 
-def detail(request, id):
-    melody = get_object_or_404(Melody, pk=id)  #melody를 작성한 id 값이 들어감
-    comments = Joiner.objects.filter( post =melody)  #melody와 연관된 comments들 다 가져오기
-    chats = Chat.objects.all().filter(post = melody)
-    if melody.likes.filter(id=request.user.id):
-        message= 1
-    else: 
-        message = 2
-    message_joiner = 0
-    count = 0
-    if comments:
-        joiner=get_object_or_404(Joiner, pk=id)
-        if joiner.joiner_likes.filter(id=request.user.id):
-            message_joiner = 1
-        else:
-            message_joiner = 2
+def detail(request):
+    # melody = get_object_or_404(Melody, pk=id)  #melody를 작성한 id 값이 들어감
+    # comments = Joiner.objects.filter( post =melody)  #melody와 연관된 comments들 다 가져오기
+    # chats = Chat.objects.all().filter(post = melody)
+    # if melody.likes.filter(id=request.user.id):
+    #     message= 1
+    # else: 
+    #     message = 2
+    # message_joiner = 0
+    # count = 0
+    # if comments:
+    #     joiner=get_object_or_404(Joiner, pk=id)
+    #     if joiner.joiner_likes.filter(id=request.user.id):
+    #         message_joiner = 1
+    #     else:
+    #         message_joiner = 2
         
     
-    comment_sub = []
-    for i in range(0, 6):
-        comment_sub.append(list())
-    for comment in comments:
-        print(comment.position)
-        if comment.position == "1": #piano
-            comment_sub[1].append(comment)
-        elif comment.position == "2": #guitar
-            comment_sub[2].append(comment)
-        elif comment.position == "3": #bass
-            comment_sub[3].append(comment)
-        elif comment.position == "4": #drum
-            comment_sub[4].append(comment)
-        elif comment.position == "5": #else
-            comment_sub[5].append(comment)
-    print(comment_sub)
-    return render(request,'melody_default.html',{"melody":melody,"comment_sub":comment_sub, "chats":chats, "message":message, "message_joiner":message_joiner, "count":count},)   #'melody_detail2.html'
-    
+    # comment_sub = []
+    # for i in range(0, 6):
+    #     comment_sub.append(list())
+    # for comment in comments:
+    #     print(comment.position)
+    #     if comment.position == "1": #piano
+    #         comment_sub[1].append(comment)
+    #     elif comment.position == "2": #guitar
+    #         comment_sub[2].append(comment)
+    #     elif comment.position == "3": #bass
+    #         comment_sub[3].append(comment)
+    #     elif comment.position == "4": #drum
+    #         comment_sub[4].append(comment)
+    #     elif comment.position == "5": #else
+    #         comment_sub[5].append(comment)
+    # print(comment_sub)
+    return render(request,'melody_default.html')
+                #   ,{"melody":melody,"comment_sub":comment_sub, "chats":chats, "message":message, "message_joiner":message_joiner, "count":count},)   #'melody_detail2.html'
 
 def upload_melody(request):
     if request.method == "POST":

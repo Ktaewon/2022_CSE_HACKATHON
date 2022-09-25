@@ -27,15 +27,10 @@ function imgSize(which){
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        
         reader.onload = function (e) {
-            $('#image_section').attr('src', e.target.result);
-            //var width = document.getElementById('image_section').width;
-            //var height = document.getElementById('image_section').height;
-            //alert("width : " + width);
-            //alert("height : " + height);
+          // console.log(e.target.result);
+          $('#image_section').attr('src', e.target.result);
         }
-
         reader.readAsDataURL(input.files[0]);
     }
 }
@@ -51,18 +46,18 @@ function readAudio(input) {
     }
 }
     
-   // 이벤트를 바인딩해서 input에 파일이 올라올때 위의 함수를 this context로 실행합니다.
-
+   //이벤트를 바인딩해서 input에 파일이 올라올때 위의 함수를 this context로 실행합니다.
+var ImgLink = "";
 $(function() {
     $("#imgInput").on('change', function(){
-        readURL(this);
-        //imgSize("image_section");
+        ImgLink = readURL(this);
+        imgSize("image_section");
     });
 });
 $(document).ready(function() {
     $("#image_section").load(function() {
         imgSize("image_section");
-        document.getElementById("image_section").style.borderRadius=27;
+        // document.getElementById("image_section").style.borderRadius=27;
         document.getElementById("image_section").style.visibility="visible";
     });
 });
@@ -84,8 +79,10 @@ $(function() {
         $("#music_name").show();
     });
 });
-let hashtags = "";
 
+
+let hashtags = "";
+var addedHashtags = [];
 function makehash(){
     var hashtag = document.getElementById("hashtags");
     if (hashtag.value == "" || hashtag.value == null) {
@@ -94,10 +91,11 @@ function makehash(){
     }
     document.getElementById("hash-con").innerHTML += "<span id='hash'>" + "#" + hashtag.value + "</span>";
     if (hashtags == ""){
-        hashtags = hashtag.value;
+      hashtags = hashtag.value;
     } else {
-        hashtags += "," + hashtag.value;
+      hashtags += "," + hashtag.value;
     }
+    addedHashtags.push(hashtag.value);
     document.getElementById("hashtag_data").innerText = hashtags;
     hashtag.value = null;
 }
