@@ -25,7 +25,9 @@ module.exports = (db) => {
       });
 
       if (!result) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Sub Melody Creation Failed');
+        error.statusCode = 500;
+        throw error;
       }
       res.status(200).json(result);
     })
@@ -36,31 +38,16 @@ module.exports = (db) => {
     '/',
     doAsync(async (req, res) => {
       const { melody_id } = req.query;
-      const submelody = await db.Submelody.findAll({
+      const submelodies = await db.Submelody.findAll({
         where: { id: melody_id },
       });
 
-      if (!submelody) {
-        res.status(500).send({ message: '에러남' });
+      if (!submelodies) {
+        const error = new Error('Sub Melody Retrieval Failed');
+        error.statusCode = 500;
+        throw error;
       }
-      res.status(200).json(submelody);
-    })
-  );
-
-  //선택한 submelody 불러오기
-  router.get(
-    '/audio',
-    doAsync(async (req, res) => {
-      // const { melody_id } = req.query;
-      const { submelody_id } = req.body;
-      const submelody = await db.Submelody.findAll({
-        where: { id: submelody_id },
-      });
-
-      if (!submelody) {
-        res.status(500).send({ message: '에러남' });
-      }
-      res.status(200).json(submelody);
+      res.status(200).json(submelodies);
     })
   );
 
@@ -87,7 +74,9 @@ module.exports = (db) => {
         where: { id: submelody_id },
       });
       if (!melody) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('submelody id is wrong');
+        error.statusCode = 400;
+        throw error;
       }
 
       const audio = req.files[0].filename;
@@ -100,7 +89,9 @@ module.exports = (db) => {
       console.log('오디오 이름은 : ' + audio);
 
       if (!result) {
-        res.status(500).send({ message: '에러남' });
+        const error = new Error('Sub Melody Audio Upload Failed.');
+        error.statusCode = 500;
+        throw error;
       }
       res.status(200).json(result);
     })
@@ -118,7 +109,9 @@ module.exports = (db) => {
       });
 
       if (!playfile) {
-        return res.status(500).send({ message: '에러남' });
+        const error = new Error('Sub Melody Audio is Not Exists.');
+        error.statusCode = 400;
+        throw error;
       }
       streamAudio(req, res, filepath);
     })
